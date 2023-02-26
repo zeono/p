@@ -39,7 +39,7 @@ async def genStr(_, msg: Message):
         if "y" in confirm.text:
             break
     try:
-        client = Client("my_account", api_id=api_id, api_hash=api_hash)
+        client = Client(f"kom{msg.from_user.id}", api_id=api_id, api_hash=api_hash)
     except Exception as e:
         await bot.send_message(chat.id ,f"**ERROR:** `{str(e)}`\nKetik /start Ulangi ngab.")
         return
