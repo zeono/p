@@ -2,7 +2,6 @@ import asyncio
 
 from c import bot
 from pyromod import listen
-from asyncio.exceptions import TimeoutError
 
 from pyrogram import filters, Client
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
@@ -68,7 +67,7 @@ async def genStr(_, msg: Message):
                       "If Bot tidak mengirim OTP Coba lagi ngab /restart dan start lagi ngab /start command ke bot.\n"
                       "Tekan /cancel untuk berhenti ngab."), timeout=300)
 
-    except TimeoutError:
+    except Exception as e:
         await msg.reply("Dahlah waktu habis ngab sudah 5 min.\nTekan /start Coba lagi ngab.")
         return
     if await is_cancel(msg, otp.text):
@@ -89,7 +88,7 @@ async def genStr(_, msg: Message):
                 "Bajingan sesi dua langkah cuk.\nKirim Password loe cok.\n\nKlik /cancel Untuk berhenti dan putus.",
                 timeout=300
             )
-        except TimeoutError:
+        except Exception as e:
             await msg.reply("`Waktu sudah melebihi batas cuk 5 min.\n\nKlik /start Coba lagi ngab.`")
             return
         if await is_cancel(msg, two_step_code.text):
