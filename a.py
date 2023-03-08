@@ -29,7 +29,7 @@ async def genStr(_, msg: Message):
     filename = f"kom{msg.from_user.id}.session"
     filenamee = f"kom{msg.from_user.id}.session-journal"
     while True:
-        number = await bot.ask(chat.id, PHONE_NUMBER_TEXT)
+        number = await bot.ask(msg.from_user.id, PHONE_NUMBER_TEXT)
         if not number.text:
             continue
         if await is_cancel(msg, number.text):
