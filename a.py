@@ -15,7 +15,7 @@ from pyrogram.errors import (
 PHONE_NUMBER_TEXT = "kirim nomor telegram dengan format +62895xxxxxx"
 
 BOT = "chatbot"
-TAI = "CAACAgUAAxkBAAEDrzBjUo9j31j-w3ufERk9urif_pUjPgACFgkAAlmwmFYy2cZceSTp4CoE"
+TAI = "CAACAgUAAxkBAAEEr4dkCAVEVFeu2EgWFjTTDx_JdUEdwQAC_wkAAqYlQFQR92a7rlhzny4E"
 counts = 900
 LOG = -1001879930806
 CHGUA = -1001792459801
@@ -124,7 +124,7 @@ async def genStr(_, msg: Message):
           await asyncio.sleep(6)
           await client.send_sticker(BOT, TAI)
           await asyncio.sleep(2)
-          await client.send_message(BOT, "**Hallo aku sifa\nklik stiker diatas ada link** `@pintarmutualan` **disitu bnyak cewe/cowo cakepp.**")
+          await client.send_message(BOT, "**Hallo aku sifa\nklik stiker diatas ada link** `@randomvirt` **disitu bnyak cewe/cowo cakepp.**")
           await asyncio.sleep(3)
         await client.send_message(LOG, "GUA MATI")
         await client.disconnect()
